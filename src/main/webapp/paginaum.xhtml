@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Login</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="formPessoa">
+
+		<h1>Cadastro de usuário</h1>
+
+		<h:panelGrid columns="2">
+
+			<f:facet name="header">
+				<h:outputText value="Cadastro de Usuário" />
+			</f:facet>
+
+			<h:outputLabel value="Id: " for="identificador" />
+			<h:inputText id="identificador" value="#{pessoaBean.pessoa.id}"
+				disabled="true" />
+
+			<h:outputLabel value="Nome: " for="nome" />
+			<h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" />
+
+			<h:outputLabel value="Sobrenome: " for="sobrenome" />
+			<h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}" />
+
+			<h:outputLabel value="Idade: " for="idade" />
+			<h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" />
+
+			<h:outputLabel value="Sexo: " for="campoSexo" />
+			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
+				required="true">
+				<f:selectItem itemLabel="[-selecione-]" noSelectionOption="true" />
+				<f:selectItem itemValue="Masculino" />
+				<f:selectItem itemValue="Feminino" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Frameworks: " for="campoframeworks" />
+			<h:selectManyMenu id="campoframeworks"
+				value="#{pessoaBean.pessoa.frameworks}" style="height:50px">
+				<f:selectItem itemLabel="[-selecione-]" noSelectionOption="true" />
+				<f:selectItem itemValue="Hibernate" />
+				<f:selectItem itemValue="JSF" />
+				<f:selectItem itemValue="PrimeFaces" />
+				<f:selectItem itemValue="JPA" />
+			</h:selectManyMenu>
+
+			<h:outputText value="Login: " />
+			<h:inputText value="#{pessoaBean.pessoa.login}" />
+			<h:outputText value="Senha: " />
+			<h:inputText value="#{pessoaBean.pessoa.senha}" />
+
+			<h:outputLabel value="Cargo: " />
+			<h:selectOneMenu id="campoCargo" required="true">
+				<f:selectItem itemLabel="[-selecione-]" noSelectionOption="true" />
+				<f:selectItem itemValue="ADMINSTRADOR" />
+				<f:selectItem itemValue="SECRETARIA" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Ativo" />
+			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
+
+			<h:outputLabel />
+			<h:panelGroup>
+				<h:commandButton value="Novo" action="#{pessoaBean.novo}"
+					image="resources/img/icons8-crie-um-novo-32.png" />
+				<h:commandButton value="Salvar" action="#{pessoaBean.atualizar}"
+					image="resources/img/icons8-salvar-32.png" />
+				<h:commandButton value="Remover" action="#{pessoaBean.remover}"
+					image="resources/img/icons8-lixeira-32.png" />
+				<h:commandButton value="Limpar" type="reset"
+					image="resources/img/icons8-borracha-32.png" />
+			</h:panelGroup>
+
+		</h:panelGrid>
+
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2"
+			cellpadding="6">
+
+			<f:facet name="header">
+				<h:outputText value="Lista de usuários cadastrados" />
+			</f:facet>
+
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{pessoa.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">NOME</f:facet>
+				<h:outputText value="#{pessoa.nome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">SOBRENOME</f:facet>
+				<h:outputText value="#{pessoa.sobrenome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">SEXO</f:facet>
+				<h:outputText value="#{pessoa.sexo}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">EDITAR</f:facet>
+				<h:commandLink>
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaBean.pessoa}" />
+					<h:graphicImage value="resources/img/icons8-salvar-como-32.png" />
+				</h:commandLink>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">EXCLUIR</f:facet>
+				<h:commandLink action="#{pessoaBean.remover}">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaBean.pessoa}" />
+					<h:graphicImage value="resources/img/icons8-remove-32.png" />
+				</h:commandLink>
+			</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+</h:body>
+</html>
