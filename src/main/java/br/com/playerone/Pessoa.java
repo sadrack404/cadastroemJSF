@@ -1,6 +1,7 @@
 package br.com.playerone;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,18 +20,34 @@ public class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	private String nome;
 	private String sobrenome;
 	private Integer idade;
 	@Temporal(TemporalType.DATE)
-	private Date dataNascimento;
+	private Date dataNascimento = new Date();
 	private String sexo;
 	private String[] frameworks;
 	private Boolean ativo;
+	private String[] linguagens;
+
+	private String cep;
+	private String logradouro;
+	private String complemento;
+	private String bairro;
+	private String localidade;
+	private String uf;
+	private String unidade;
+	private String ibge;
+	private String gia;
+	private String ddd;
+	private String siafi;
 
 	private String login;
 	private String senha;
 	private String perfilUsuario;
+
+	private String nivelExperiencia;
 
 	public Pessoa() {
 		super();
@@ -124,6 +141,102 @@ public class Pessoa implements Serializable {
 		this.perfilUsuario = perfilUsuario;
 	}
 
+	public String getNivelExperiencia() {
+		return nivelExperiencia;
+	}
+
+	public void setNivelExperiencia(String nivelExperiencia) {
+		this.nivelExperiencia = nivelExperiencia;
+	}
+
+	public String[] getLinguagens() {
+		return linguagens;
+	}
+
+	public void setLinguagens(String[] linguagens) {
+		this.linguagens = linguagens;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+
+	public String getIbge() {
+		return ibge;
+	}
+
+	public void setIbge(String ibge) {
+		this.ibge = ibge;
+	}
+
+	public String getGia() {
+		return gia;
+	}
+
+	public void setGia(String gia) {
+		this.gia = gia;
+	}
+
+	public String getDdd() {
+		return ddd;
+	}
+
+	public void setDdd(String ddd) {
+		this.ddd = ddd;
+	}
+
+	public String getSiafi() {
+		return siafi;
+	}
+
+	public void setSiafi(String siafi) {
+		this.siafi = siafi;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -140,5 +253,21 @@ public class Pessoa implements Serializable {
 		Pessoa other = (Pessoa) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Pessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", idade=" + idade
+				+ ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", frameworks="
+				+ Arrays.toString(frameworks) + ", ativo=" + ativo + ", login=" + login + ", senha=" + senha
+				+ ", perfilUsuario=" + perfilUsuario + ", nivelExperiencia=" + nivelExperiencia + "]";
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 }

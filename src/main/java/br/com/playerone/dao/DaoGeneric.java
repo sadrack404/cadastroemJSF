@@ -13,9 +13,9 @@ public class DaoGeneric<E> {
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		
+
 		entityManager.persist(entidade);
-		
+
 		entityTransaction.commit();
 		entityManager.close();
 	}
@@ -25,11 +25,11 @@ public class DaoGeneric<E> {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
-		E e = entityManager.merge(entidade);
+		E entidadeSalvaOuAtualizada = entityManager.merge(entidade);
 
 		entityTransaction.commit();
 		entityManager.close();
-		return e;
+		return entidadeSalvaOuAtualizada;
 	}
 
 	public void remover(E entidade) {
@@ -42,7 +42,7 @@ public class DaoGeneric<E> {
 		entityTransaction.commit();
 		entityManager.close();
 	}
-	
+
 	public void removerPorId(E entidade) {
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -50,27 +50,24 @@ public class DaoGeneric<E> {
 
 		Object id = JpaUtil.getPrimaryKey(entidade);
 
-		entityManager.createQuery(
-				"delete from " + entidade.getClass().getSimpleName() + " where id = " + id)
+		entityManager.createQuery("delete from " + entidade.getClass().getSimpleName() + " where id = " + id)
 				.executeUpdate();
 
 		entityTransaction.commit();
 	}
-	
-	@SuppressWarnings({ "unchecked"})
+
+	@SuppressWarnings({ "unchecked" })
 	public List<E> getListEntity(E entidade) {
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transactional = entityManager.getTransaction();
 		transactional.begin();
-		
-		List<E> lista = entityManager
-				.createQuery("select u from " + entidade.getClass().getSimpleName() +" u ")
+
+		List<E> lista = entityManager.createQuery("select u from " + entidade.getClass().getSimpleName() + " u ")
 				.getResultList();
-		
+
 		transactional.commit();
 		entityManager.close();
 		return lista;
 	}
-	
-}
 
+}
