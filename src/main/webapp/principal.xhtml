@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<title>Login</title>
@@ -26,7 +27,7 @@
 
 			<h:outputLabel value="Nome: " for="nome" />
 			<h:inputText id="nome" value="#{pessoaBean.pessoa.nome}"
-				required="true"
+				required="true" p:placeholder="Informe o nome"
 				validatorMessage="Nome tem que ter no mininmo 3 caracteres">
 				<f:validateLength minimum="3" maximum="50" />
 			</h:inputText>
@@ -38,7 +39,7 @@
 			<h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" />
 
 			<h:outputLabel value="Data de Nascimento: " />
-			<h:inputText value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!">
+			<h:inputText value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data inválida!" p:placeholder="dd/mm/yyyy">
 				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00" />
 			</h:inputText>
 
@@ -63,7 +64,7 @@
 			<h:outputText value="Login: " />
 			<h:inputText value="#{pessoaBean.pessoa.login}" />
 			<h:outputText value="Senha: " />
-			<h:inputText value="#{pessoaBean.pessoa.senha}" />
+			<h:inputText value="#{pessoaBean.pessoa.senha}" p:placeholder="Tenha no minimo 8 Digitos" />
 
 			<h:outputLabel value="Perfil: " for="perfil" required="true" />
 			<h:selectOneMenu id="perfil" value="#{pessoaBean.pessoa.perfilUsuario}">
