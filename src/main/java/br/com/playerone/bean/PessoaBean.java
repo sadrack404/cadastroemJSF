@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,6 +34,7 @@ public class PessoaBean {
 	private DaoGeneric<Pessoa> daogeneric = new DaoGeneric<Pessoa>();
 	private IdaoPessoa daoPessoa = new IdaoPessoaImpl();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	private List<SelectItem> estados;
 
 	public String novo() {
 		pessoa = new Pessoa();
@@ -168,6 +170,11 @@ public class PessoaBean {
 
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	}
+	
+	public List<SelectItem> getEstados() {
+		estados = daoPessoa.listaEstados();
+		return estados;
 	}
 
 }

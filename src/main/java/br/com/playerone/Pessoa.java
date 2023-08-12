@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -42,6 +43,9 @@ public class Pessoa implements Serializable {
 	private String gia;
 	private String ddd;
 	private String siafi;
+	
+	@Transient /* NÃO PERSISTE*/
+	private Estado estados;
 
 	private String login;
 	private String senha;
@@ -269,5 +273,14 @@ public class Pessoa implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+
+	public Estado getEstados() {
+		return estados;
+	}
+
+	public void setEstados(Estado estados) {
+		this.estados = estados;
+	}
+	
 
 }

@@ -10,6 +10,8 @@
 
 		<class>br.com.playerone.Pessoa</class>
 		<class>br.com.playerone.Lancamento</class>
+		<class>br.com.playerone.Estado</class>
+		<class>br.com.playerone.Cidade</class>
 
 		<properties>
 
