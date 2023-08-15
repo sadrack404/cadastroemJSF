@@ -15,12 +15,13 @@ import javax.persistence.ManyToOne;
 public class Cidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	private Estado estado_id;
+	private Estado estado;
 
 	public Long getId() {
 		return id;
@@ -29,15 +30,15 @@ public class Cidade implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Estado getEstado_id() {
-		return estado_id;
-	}
-
-	public void setEstado_id(Estado estado_id) {
-		this.estado_id = estado_id;
-	}
 	
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -61,6 +62,11 @@ public class Cidade implements Serializable {
 			return false;
 		Cidade other = (Cidade) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Cidade [id=" + id + ", nome=" + nome + ", estado_id=" + estado + "]";
 	}
 
 }

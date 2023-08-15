@@ -33,9 +33,9 @@ public class LancamentoBean {
 
 	public String salvar() {
 		Pessoa usuarioLogado = idUsuarioLogado();
-		System.err.println(lancamento);
+		
 		lancamento.setUsuario(usuarioLogado);
-		lancamento = daoGeneric.atualizar(lancamento);
+		lancamento = daoGeneric.merge(lancamento);
 
 		carregarLancamentos();
 

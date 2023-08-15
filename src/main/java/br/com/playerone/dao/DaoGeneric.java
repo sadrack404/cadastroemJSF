@@ -20,16 +20,16 @@ public class DaoGeneric<E> {
 		entityManager.close();
 	}
 
-	public E atualizar(E entidade) {
+	public E merge(E entidade) {
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
-		E entidadeSalvaOuAtualizada = entityManager.merge(entidade);
+		E e = entityManager.merge(entidade);
 
 		entityTransaction.commit();
 		entityManager.close();
-		return entidadeSalvaOuAtualizada;
+		return e;
 	}
 
 	public void remover(E entidade) {
@@ -68,6 +68,17 @@ public class DaoGeneric<E> {
 		transactional.commit();
 		entityManager.close();
 		return lista;
+	}
+
+	public E buscarPorEntidade(Class<E> entidade, Long id) {
+		EntityManager entityManager = JpaUtil.getEntityManager();
+		EntityTransaction transactional = entityManager.getTransaction();
+		transactional.begin();
+
+		E objeto = (E) entityManager.find(entidade, id);
+
+		transactional.commit();
+		return objeto;
 	}
 
 }

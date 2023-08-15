@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:form>
+
+	<h:outputLabel value="Estados: " />
+	<h:selectOneMenu value="#{pessoaBean.pessoa.estado}" immediate="true"
+		id="comboEstado" converter="estadoConverter">
+		<f:selectItem itemLabel="[-SELECIONAR-]" noSelectionOption="true" />
+		<f:selectItems value="#{pessoaBean.estados}" />
+		<f:ajax event="change" execute="@this"
+			listener="#{pessoaBean.carregaCidades}" render="comboCidade" />
+	</h:selectOneMenu>
+
+	<h:outputLabel value="Cidade: " />
+	<h:selectOneMenu value="#{pessoaBean.pessoa.cidade}" immediate="true"
+		id="comboCidade" converter="cidadeConverter">
+		<f:selectItem itemLabel="[-SELECIONAR-]" noSelectionOption="true" />
+		<f:selectItems value="#{pessoaBean.cidades}" />
+	</h:selectOneMenu>
+
+</h:form>
+
+
+</html>

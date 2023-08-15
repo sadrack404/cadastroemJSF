@@ -13,4 +13,5 @@ public interface IdaoPessoa {
 
 	public List<SelectItem> listaEstados ();
 	
+	
 }

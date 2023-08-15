@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Teste</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:messages style="background:#48D1CC" />
+		<h:panelGrid columns="2">
+			<h:outputLabel value="ID: " for="identificador" />
+			<h:inputText id="identificador" value="#{pessoaBean.pessoa.id}" />
+
+			<h:outputLabel value="Nome: " for="nome" />
+			<h:inputText id="nome" value="#{pessoaBean.pessoa.nome}"
+				required="true" p:placeholder="Informe o nome"
+				validatorMessage="Nome tem que ter no mininmo 3 caracteres">
+				<f:validateLength minimum="3" maximum="50" />
+			</h:inputText>
+
+			<h:outputLabel value="Sobrenome: " for="sobrenome" />
+			<h:inputText id="sobrenome" value="#{pessoaBean.pessoa.sobrenome}" />
+
+			<h:outputLabel value="Idade: " for="idade" />
+			<h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" />
+
+			<h:outputLabel value="Data de Nascimento: " />
+			<h:inputText value="#{pessoaBean.pessoa.dataNascimento}"
+				converterMessage="Data inválida!" p:placeholder="dd/mm/yyyy">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00" />
+			</h:inputText>
+
+
+
+			<h:outputLabel value="Sexo: " for="campoSexo" />
+			<h:selectOneRadio id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
+				required="false">
+				<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+				<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+			</h:selectOneRadio>
+		</h:panelGrid>
+
+		<h:panelGroup>
+			<!--  
+		<h:outputLabel value="Frameworks: " for="campoframeworks" />
+		<h:selectManyMenu id="campoFrameworks"
+			value="#{pessoaBean.pessoa.frameworks}" style="height:70px"
+			required="false">
+			<f:selectItem itemLabel="[-SELECIONE-]" noSelectionOption="true" />
+			<f:selectItem itemValue="Hibernate" />
+			<f:selectItem itemValue="JSF" />
+			<f:selectItem itemValue="PrimeFaces" />
+			<f:selectItem itemValue="JPA" />
+		</h:selectManyMenu>
+	 -->
+
+		</h:panelGroup>
+
+		<h:commandButton id="botaoSalvar" value="Salvar"
+			action="#{pessoaBean.salvar}" />
+
+
+	</h:form>
+	<h:form id="formPesso">
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2"
+			cellpadding="6">
+
+			<f:facet name="header">
+				<h:outputText value="Lista de usuários cadastrados" />
+			</f:facet>
+
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{pessoa.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">NOME</f:facet>
+				<h:outputText value="#{pessoa.nome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">SOBRENOME</f:facet>
+				<h:outputText value="#{pessoa.sobrenome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">SEXO</f:facet>
+				<h:outputText value="#{pessoa.sexo}" />
+			</h:column>
+
+			<h:column rendered="#{(pessoaBean.permitirAcesso('ADMINISTRADOR'))}">
+				<f:facet name="header">EDITAR</f:facet>
+				<h:commandLink title="Editar" immediate="true">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaBean.pessoa}" />
+					<h:graphicImage value="resources/img/icons8-salvar-32.png" />
+				</h:commandLink>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">EXCLUIR</f:facet>
+				<h:commandLink action="#{pessoaBean.remover}" title="excluir">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaBean.pessoa}" />
+					<h:graphicImage value="resources/img/icons8-remove-32.png" />
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+</h:body>
+</html>

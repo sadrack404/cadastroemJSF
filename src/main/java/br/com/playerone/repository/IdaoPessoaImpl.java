@@ -6,7 +6,6 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.transaction.Transaction;
 
 import br.com.playerone.Estado;
 import br.com.playerone.Pessoa;
@@ -31,6 +30,7 @@ public class IdaoPessoaImpl implements IdaoPessoa {
 		return pessoa;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SelectItem> listaEstados() {
 		List<SelectItem> selectItems = new ArrayList<SelectItem>();

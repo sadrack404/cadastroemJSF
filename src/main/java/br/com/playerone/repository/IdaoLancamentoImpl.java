@@ -10,6 +10,7 @@ import br.com.playerone.jpautil.JpaUtil;
 
 public class IdaoLancamentoImpl implements IdaoLancamento {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Lancamento> listarLancamentos(Long codUsuario) {
 		List<Lancamento> lancamentosDoUsuario = null;
