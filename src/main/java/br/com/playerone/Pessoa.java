@@ -17,6 +17,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.constraints.br.TituloEleitoral;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -28,8 +35,21 @@ public class Pessoa implements Serializable {
 	private Long id;
 
 	private String nome;
+
+	@CPF(message = "CPF inválido.")
+	private String cpf;
+
+	@TituloEleitoral
+	private String titulo;
+
+	@NotEmpty(message = "O sobrenome não pode ser vazio.")
+	@NotNull(message = "O sobrenome é obrigatório.")
 	private String sobrenome;
+
+	@DecimalMax(value = "80", message = "A idade não pode ser maior que 80 anos.")
+	@DecimalMin(value = "10", message = "A idade não pode ser menor que 10 anos.")
 	private Integer idade;
+
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento = new Date();
 	private String sexo;
@@ -61,14 +81,14 @@ public class Pessoa implements Serializable {
 	private String nivelExperiencia;
 
 	@Column(columnDefinition = "text")
-	private String fotoIconBase64;/*tipo text grava arquivos em base 64*/
-	
-	private String extensao;/*extensao jpg, png , jpeg*/
-	
-	@Lob /*Gravar arquivos no banco de dados*/
+	private String fotoIconBase64;/* tipo text grava arquivos em base 64 */
+
+	private String extensao;/* extensao jpg, png , jpeg */
+
+	@Lob /* Gravar arquivos no banco de dados */
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] fotoIconBase64Original;
-	
+
 	public String getFotoIconBase64() {
 		return fotoIconBase64;
 	}
@@ -328,6 +348,14 @@ public class Pessoa implements Serializable {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 }

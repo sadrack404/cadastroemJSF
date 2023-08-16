@@ -14,8 +14,7 @@
 
 	<ui:include src="/menu.xhtml" />
 
-	<h:form id="formPessoa" enctype="multipart/form-data"
-		rendered="#{(pessoaBean.permitirAcesso('ADMINISTRADOR'))}">
+	<h:form id="formPessoa" enctype="multipart/form-data" rendered="#{(pessoaBean.permitirAcesso('ADMINISTRADOR'))}">
 		<h:messages style="background:#48D1CC" />
 		<!-- AQUI FICA A MENSAGEM -->
 		<h:panelGrid columns="2">
@@ -48,6 +47,9 @@
 				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 					timeZone="GMT-03:00" />
 			</h:inputText>
+
+			<h:outputLabel value="CPF: " for="cpf" />
+			<h:inputText id="cpf" value="#{pessoaBean.pessoa.cpf}" />
 
 			<h:outputLabel value="Sexo: " for="campoSexo" />
 			<h:selectOneRadio id="campoSexo" value="#{pessoaBean.pessoa.sexo}"

@@ -30,6 +30,11 @@ public class LancamentoBean {
 		lancamento = new Lancamento();
 		return "";
 	}
+	
+	public String limpar() {
+		lancamento = new Lancamento();
+		return "";
+	}
 
 	public String salvar() {
 		Pessoa usuarioLogado = idUsuarioLogado();

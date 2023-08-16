@@ -36,7 +36,7 @@
 		
 		<h:panelGroup>
 			<h:commandButton value="Salvar" action="#{lancamentoBean.salvar}" image="resources/img/icons8-salvar-32.png" style="margin-left:1cm"/>
-			<h:commandButton value="Limpar campos" type="reset" image="resources/img/icons8-borracha-32.png" style="margin-left:1cm" />
+			<h:commandButton value="Limpar campos" action="#{lancamentoBean.limpar}" image="resources/img/icons8-borracha-32.png" style="margin-left:1cm" />
 		</h:panelGroup>
 		
 		<h:dataTable value="#{lancamentoBean.lancamentos}" var="lanc" border="3" cellpadding="6">

@@ -23,7 +23,21 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
-
+			
+			<!-- Minimo de conexões disponiveis -->
+			<property name="hibernate.c3p0.min_size" value="5"/>
+			<!-- Maximo de conexões disponiveis -->
+			<property name="hibernate.c3p0.max_size" value="8"/>
+			<!-- Tempo em millesegundo de uma conexão ociosa -->
+			<property name="hibernate.c3p0.timeout" value="300"/>
+			<!-- Numero de transações no banco de dados em cache -->
+			<property name="hibernate.c3p0.max_statements" value="50"/>
+			<!-- Tempo ocioso em segundos antes de uma conexao ser validada -->
+			<property name="hibernate.c3p0.max_statements" value="50"/>
+			<property name="hibernate.c3p0.idle_test_period" value="120"/>
+			
+		
+		
 		</properties>
 
 	</persistence-unit>
