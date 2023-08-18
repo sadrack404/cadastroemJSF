@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 
 import br.com.playerone.Estado;
 import br.com.playerone.Pessoa;
@@ -20,10 +21,16 @@ public class IdaoPessoaImpl implements IdaoPessoa {
 		EntityManager entityManager = JpaUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
+		
+		try {
+			pessoa = (Pessoa) entityManager
+					.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'")
+					.getSingleResult();
+		} catch (NoResultException e) { //Se não encontrar o usuario
+			
+		}
 
-		pessoa = (Pessoa) entityManager
-				.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'")
-				.getSingleResult();
+		
 
 		transaction.commit();
 		entityManager.close();

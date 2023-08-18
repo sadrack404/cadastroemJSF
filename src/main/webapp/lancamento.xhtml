@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
 	<title>Lançamentos</title>
@@ -14,7 +15,7 @@
 	
 	<ui:include src="/menu.xhtml" />
 
-	<h:form id="formLancamento">
+	<b:form id="formLancamento">
 
 		<h:panelGrid columns="2">
 			<f:facet name="header">
@@ -22,16 +23,16 @@
 			</f:facet>
 
 			<h:outputText value="Id:" />
-			<h:inputText value="#{lancamentoBean.lancamento.id}" disabled="true"/>
+			<b:inputText value="#{lancamentoBean.lancamento.id}" readonly="true"/>
 
 			<h:outputText value="Nota:" />
-			<h:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}" />
+			<b:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}" />
 
 			<h:outputText value="Origem:" />
-			<h:inputText value="#{lancamentoBean.lancamento.empresaOrigem}" />
+			<b:inputText value="#{lancamentoBean.lancamento.empresaOrigem}" />
 
 			<h:outputText value="Destino:" />
-			<h:inputText value="#{lancamentoBean.lancamento.empresaDestino}" />
+			<b:inputText value="#{lancamentoBean.lancamento.empresaDestino}" />
 		</h:panelGrid>	
 		
 		<h:panelGroup>
@@ -39,7 +40,7 @@
 			<h:commandButton value="Limpar campos" action="#{lancamentoBean.limpar}" image="resources/img/icons8-borracha-32.png" style="margin-left:1cm" />
 		</h:panelGroup>
 		
-		<h:dataTable value="#{lancamentoBean.lancamentos}" var="lanc" border="3" cellpadding="6">
+		<b:dataTable value="#{lancamentoBean.lancamentos}" var="lanc" border="3" cellpadding="6">
 			<h:column>
 				<f:facet name="header">ID</f:facet>
 				<h:outputText value="#{lanc.id}" />
@@ -75,8 +76,8 @@
 					<f:setPropertyActionListener value="#{lanc}" target="#{lancamentoBean.lancamento}" />
 				</h:commandLink>
 			</h:column>
-		</h:dataTable>
+		</b:dataTable>
 
-	</h:form>
+	</b:form>
 </h:body>
 </html>

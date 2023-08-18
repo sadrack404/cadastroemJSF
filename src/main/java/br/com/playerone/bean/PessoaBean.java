@@ -64,43 +64,56 @@ public class PessoaBean {
 		return null;
 	}
 
-	public String salvar() throws IOException {
+	public String salvar() {
+		try {
+			// Processar Imagem
+			// System.out.println(arquivoFoto);
+			byte[] imagemByte = null;
+			if (arquivoFoto != null) {
+				imagemByte = getByteStream(arquivoFoto.getInputStream());
+			}
+			if (imagemByte != null && imagemByte.length > 0) {
+				pessoa.setFotoIconBase64Original(imagemByte); /* Salva imagem original */
 
-		/* Precessa a Imagem */
-		byte[] imagemByte = getByteStream(arquivoFoto.getInputStream());
-		pessoa.setFotoIconBase64Original(imagemByte); // Salva Imagem original
+				/* Transofmrar em bufferimage */
+				BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
 
-		// Transformar um bufferImage
-		BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+				/* Descobrir o tipo da imagem */
+				int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
 
-		// Pega o tipo de Imagem
-		int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+				int largura = 200;
+				int altura = 200;
 
-		int largura = 200;
-		int altura = 200;
+				/* Criar a miniatura */
+				BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+				Graphics2D g = resizedImage.createGraphics();
+				g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+				g.dispose();
 
-		// criar a miniatura
-		BufferedImage miniatura = new BufferedImage(largura, altura, type);
-		Graphics2D g = miniatura.createGraphics();
-		g.drawImage(bufferedImage, 0, 0, largura, altura, null);
-		g.dispose();
+				/* Escrever novamente a imagem em tamanho menor */
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				String extensao = arquivoFoto.getContentType().split("\\/")[1]; /* Exemplo: image/png */
+				ImageIO.write(resizedImage, extensao, baos);
 
-		// Escrever novamente a imagem em tamanho reduzido;
+				String miniImagem = "data:" + arquivoFoto.getContentType() + ";base64,"
+						+ DatatypeConverter.printBase64Binary(baos.toByteArray());
+				// Processar Imagem
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		String extensao = arquivoFoto.getContentType().split("\\/")[1];
-		ImageIO.write(miniatura, extensao, baos);
+				pessoa.setFotoIconBase64(miniImagem);
+				pessoa.setExtensao(extensao);
+			}
 
-		String miniImagem = "data:" + arquivoFoto.getContentType() + ";base64,"
-				+ DatatypeConverter.printBase64Binary(baos.toByteArray());
-
-		// Processar Imagem
-		pessoa.setFotoIconBase64(miniImagem);
-		pessoa.setExtensao(extensao);
-
-		pessoa = daogeneric.merge(pessoa);
-		carregarUsuarios();
-		mostrarMsg("CADASTRO REALIZADO COM SUCESSO!");
+			pessoa = daogeneric.merge(pessoa);
+			if (pessoa != null) {
+				carregarUsuarios();
+				mostrarMsg("Registered successfully!");
+			} else {
+				mostrarMsg("Could not include record!");
+			}
+		} catch (Exception e) {
+			mostrarMsg("Error adding registry!");
+			e.printStackTrace();
+		}
 		return "";
 	}
 
@@ -173,6 +186,8 @@ public class PessoaBean {
 			session.setAttribute("usuarioLogado", usuario);
 
 			return "principal.jsf";
+		} else {
+			FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Usuário ou senha incorretos!"));
 		}
 
 		return "index.jsf";
@@ -307,7 +322,7 @@ public class PessoaBean {
 	}
 
 	public void downloadFoto() throws IOException {
-		
+
 		/* O FacesContext() retorna os dados do JSF */
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String fileDownloadId = params.get("fileDownloadId");
@@ -322,7 +337,7 @@ public class PessoaBean {
 		response.setContentLength(pessoa.getFotoIconBase64Original().length);
 		response.getOutputStream().write(pessoa.getFotoIconBase64Original());
 		response.getOutputStream().flush();
-		
+
 		FacesContext.getCurrentInstance().responseComplete();
 
 	}
