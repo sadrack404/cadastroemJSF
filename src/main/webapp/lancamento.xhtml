@@ -12,72 +12,91 @@
 </h:head>
 
 <h:body>
-	
+
 	<ui:include src="/menu.xhtml" />
+	<b:messages id="msg" />
 
 	<b:form id="formLancamento">
 
-		<h:panelGrid columns="2">
+		<b:panelGrid columns="2">
 			<f:facet name="header">
 				<h:outputText value="Lançamentos" />
 			</f:facet>
+			<b:column>
+				<h:outputText value="Id:" />
+				<b:inputText value="#{lancamentoBean.lancamento.id}" readonly="true" />
+			</b:column>
+			<b:column>
+				<h:outputText value="Nota:" />
+				<b:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}"
+					required="true" requiredMessage="Informe o número da nota fiscal" />
+			</b:column>
+			<b:column>
 
-			<h:outputText value="Id:" />
-			<b:inputText value="#{lancamentoBean.lancamento.id}" readonly="true"/>
+				<h:outputText value="Origem:" />
+				<b:inputText value="#{lancamentoBean.lancamento.empresaOrigem}"
+					required="true" requiredMessage="Informe o local de origem" />
+			</b:column>
+			<b:column>
+				<h:outputText value="Destino:" />
+				<b:inputText value="#{lancamentoBean.lancamento.empresaDestino}"
+					required="true" requiredMessage="Informe o local de destino" />
+			</b:column>
 
-			<h:outputText value="Nota:" />
-			<b:inputText value="#{lancamentoBean.lancamento.numeroNotaFiscal}" />
+			<h:column>
+				<h:panelGroup>
+					<h:commandButton value="Salvar" action="#{lancamentoBean.salvar}"
+						image="resources/img/icons8-salvar-32.png" />
+					<h:commandButton value="Limpar campos"
+						action="#{lancamentoBean.limpar}"
+						image="resources/img/icons8-borracha-32.png" />
+				</h:panelGroup>
+			</h:column>
+		</b:panelGrid>
+	</b:form>
+	<b:form>
 
-			<h:outputText value="Origem:" />
-			<b:inputText value="#{lancamentoBean.lancamento.empresaOrigem}" />
 
-			<h:outputText value="Destino:" />
-			<b:inputText value="#{lancamentoBean.lancamento.empresaDestino}" />
-		</h:panelGrid>	
-		
-		<h:panelGroup>
-			<h:commandButton value="Salvar" action="#{lancamentoBean.salvar}" image="resources/img/icons8-salvar-32.png" style="margin-left:1cm"/>
-			<h:commandButton value="Limpar campos" action="#{lancamentoBean.limpar}" image="resources/img/icons8-borracha-32.png" style="margin-left:1cm" />
-		</h:panelGroup>
-		
-		<b:dataTable value="#{lancamentoBean.lancamentos}" var="lanc" border="3" cellpadding="6">
+		<b:dataTable value="#{lancamentoBean.lancamentos}" var="lanc"
+			border="3" cellpadding="6">
 			<h:column>
 				<f:facet name="header">ID</f:facet>
 				<h:outputText value="#{lanc.id}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">NOTA FISCAL</f:facet>
 				<h:outputText value="#{lanc.numeroNotaFiscal}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">ORIGEM</f:facet>
 				<h:outputText value="#{lanc.empresaOrigem}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">DESTINO</f:facet>
 				<h:outputText value="#{lanc.empresaDestino}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">EDITAR</f:facet>
 				<h:commandLink title="Editar">
 					<h:graphicImage value="/resources/img/icons8-salvar-como-32.png" />
-					<f:setPropertyActionListener value="#{lanc}" target="#{lancamentoBean.lancamento}" />
+					<f:setPropertyActionListener value="#{lanc}"
+						target="#{lancamentoBean.lancamento}" />
 				</h:commandLink>
 			</h:column>
-			
+
 			<h:column rendered="#{(pessoaBean.permitirAcesso('ADMINISTRADOR'))}">
 				<f:facet name="header">REMOVER</f:facet>
 				<h:commandLink title="Remover" action="#{lancamentoBean.remover}">
 					<h:graphicImage value="/resources/img/icons8-lixeira-32.png" />
-					<f:setPropertyActionListener value="#{lanc}" target="#{lancamentoBean.lancamento}" />
+					<f:setPropertyActionListener value="#{lanc}"
+						target="#{lancamentoBean.lancamento}" />
 				</h:commandLink>
 			</h:column>
 		</b:dataTable>
-
 	</b:form>
 </h:body>
 </html>

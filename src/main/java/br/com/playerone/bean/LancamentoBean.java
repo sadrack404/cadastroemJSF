@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -43,6 +44,7 @@ public class LancamentoBean {
 		lancamento = daoGeneric.merge(lancamento);
 
 		carregarLancamentos();
+		FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Lançamento adicionado com sucesso!"));
 
 		return "";
 	}
@@ -51,6 +53,7 @@ public class LancamentoBean {
 		daoGeneric.removerPorId(lancamento);
 		lancamento = new Lancamento();
 		carregarLancamentos();
+		FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage("Lançamento removido com sucesso!"));
 		return "";
 	}
 

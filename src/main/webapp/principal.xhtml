@@ -15,7 +15,7 @@
 
 	<ui:include src="/menu.xhtml" />
 
-	<h:form id="formPessoa" enctype="multipart/form-data"
+	<b:form id="formPessoa" enctype="multipart/form-data"
 		rendered="#{(pessoaBean.permitirAcesso('ADMINISTRADOR'))}">
 
 		<b:messages />
@@ -27,7 +27,7 @@
 			</f:facet>
 
 			<b:column>
-				<h:outputLabel value="ID: " for="identificador" />
+				<h:outputLabel value="ID: " for="identificador"  />
 				<b:inputText id="identificador" value="#{pessoaBean.pessoa.id}" />
 			</b:column>
 
@@ -172,11 +172,11 @@
 					action="#{pessoaBean.limpar}" />
 			</h:panelGroup>
 		</h:panelGrid>
-	</h:form>
+	</b:form>
 
 
 
-	<h:form id="formTab">
+	<b:form id="formTab">
 		<b:dataTable value="#{pessoaBean.pessoas}" var="pessoa">
 
 			<f:facet name="header">
@@ -230,6 +230,6 @@
 				</h:commandLink>
 			</h:column>
 		</b:dataTable>
-	</h:form>
+	</b:form>
 </h:body>
 </html>
