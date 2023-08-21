@@ -1,6 +1,7 @@
 package br.com.playerone;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -26,6 +27,9 @@ public class Lancamento implements Serializable {
 	@ManyToOne
 	@ForeignKey(name = "usuario_fk")
 	private Pessoa usuario;
+	
+	private Date dataInicial;
+	private Date dataFinal;
 
 	public Long getId() {
 		return id;
@@ -65,6 +69,22 @@ public class Lancamento implements Serializable {
 
 	public void setUsuario(Pessoa usuario) {
 		this.usuario = usuario;
+	}
+
+	public Date getDataInicial() {
+		return dataInicial;
+	}
+
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
+
+	public Date getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
 	}
 
 	@Override
